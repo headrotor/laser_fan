@@ -1,4 +1,7 @@
 
+// sweep-program: Teensy 3.1 Arduino program to control 8 servos and 8 PWM laser outputs
+// for the kinetic artwork described here: http://www.instructables.com/id/Kinetic-light-work-with-servo-controlled-laser-mod/
+// Uses cos8() from the FastLED library http://fastled.io/
 
 #include "FastLED.h"
 #include <Servo.h>
@@ -6,8 +9,6 @@
 #include "gamma.h"
 
 
-//Servo myservo;  // create servo object to control a servo
-// a maximum of eight servo objects can be created
 
 int pos = 0;    // variable to store the servo position
 
@@ -17,6 +18,8 @@ int laser_pins[] = { 23, 22, 21, 20, 6, 5, 4, 3};
 
 // number of channels
 #define NC 8
+
+
 
 Servo servo0;
 Servo servo1;
@@ -89,6 +92,7 @@ void setup()
 
   Serial.begin(9600);
 
+  // can't do this in a loop for whatever reason :(
   servo0.attach(servo_pins[0]);
   servo1.attach(servo_pins[1]);
   servo2.attach(servo_pins[2]);
@@ -114,8 +118,7 @@ void setup()
 }
 
 
-void loop()
-{
+void loop() {
   int button_state;
 
   // implement state machine
